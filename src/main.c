@@ -68,13 +68,13 @@ int main(int argc, char **argv){
       return -1;
     }
     if (hmacsize != 155){
-        printf("hmacsize -> %d\n", hmacsize);
+        //printf("hmacsize -> %d\n", hmacsize);
       printf("invalid hmac file size is not %d =>%d %ld  %s \n",155,136,hmacsize,signfile);
       return -1;
     }
-    printf("%c\n", *sign_buffer);
-    printf("%c\n", *(sign_buffer + 1));
-    printf("0x%x\n", *(short*)(sign_buffer + 2));
+    //printf("%c\n", *sign_buffer);
+    //printf("%c\n", *(sign_buffer + 1));
+    //printf("0x%x\n", *(short*)(sign_buffer + 2));
     if (((*sign_buffer != 'a') || (sign_buffer[1] != 'c')) || (*(short *)(sign_buffer + 2) != 1)){
       printf("invalid sign file header %s \n", signfile);
       return -1;
