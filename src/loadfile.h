@@ -24,11 +24,11 @@ int loadFile(char *input, char **bufptr, size_t *size){
       }
       fclose(_File);
     }
-    if (((buf == (void *)0) || (pos == 0)) || (pos != num)) {
-      if (buf != (void *)0) {
+    if ((!buf) || (!pos) || (pos != num)) {
+      if (buf) {
         free(buf);
       }
-      buf = (void *)0;
+      buf = 0;
       pos = 0;
     }
     if (bufptr) {

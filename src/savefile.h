@@ -25,7 +25,7 @@ int saveFile(char *out,char *buf,size_t size){
     if (size != num_bytes_written) {
       size = 0;
     }
-    if (size == 0) {
+    if (!size) {
       retval = -1;
     }
     else {
