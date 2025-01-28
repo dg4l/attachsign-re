@@ -4,20 +4,20 @@ int saveFile(char *out,char *buf,size_t size){
   int ret;
   size_t num_bytes_written;
   
-  if (out == (char *)0) {
+  if (!out) {
     ret = -1;
   }
-  else if (buf == (void *)0) {
+  else if (!buf) {
     ret = -1;
   }
-  else if (size == 0) {
+  else if (!size) {
     ret = -1;
   }
   else {
     num_bytes_written = 0;
     outfile = fopen(out,"wb");
-    if (outfile != (FILE *)NULL) {
-      if (buf != (void *)NULL) {
+    if (outfile) {
+      if (buf) {
         num_bytes_written = fwrite(buf,1,size,outfile);
       }
       fclose(outfile);
