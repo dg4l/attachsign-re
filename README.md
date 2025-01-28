@@ -10,7 +10,7 @@ To build on Linux, simply run:
 make
 ```
 
-Building on Windows is tedious, so I have provided a [prebuilt binary](https://github.com) for Windows users.
+Building on Windows is tedious, so I have provided a [prebuilt binary](https://github.com/dg4l/attachsign-re/releases/download/build/attachsign-rev.exe) for Windows users.
 
 ## Disclaimers
 
