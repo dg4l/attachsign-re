@@ -41,7 +41,7 @@ int main(int argc, char **argv){
     return -1;
   }
   generic_retval = strcmp(argv[1], "-D");
-  if (generic_retval == 0) {
+  if (!generic_retval) {
     d_flag = 1;
     infile = argv[2];
     outfile = argv[3];
@@ -63,7 +63,7 @@ int main(int argc, char **argv){
     signfile = argv[2];
     outfile = argv[3];
     generic_retval = loadFile(signfile, &sign_buffer, &hmacsize);
-    if (generic_retval != 0) {
+    if (generic_retval) {
       printf("load error! %s \n", signfile);
       return -1;
     }
@@ -82,7 +82,7 @@ int main(int argc, char **argv){
     sign_bufptr = sign_buffer + 0x88;
   }
   generic_retval = loadFile(infile,&infile_buffer,&file_size);
-  if (generic_retval == 0) {
+  if (!generic_retval) {
       // maybe AND ntr_rom_size with file_size to prevent fffff from being at the beginning of it
     ntr_rom_size = *(infile_buffer + 0x80);
     //printf("ntr_rom_size -> %x\n", ntr_rom_size);
@@ -93,7 +93,7 @@ int main(int argc, char **argv){
       ret = -1;
     }
     else {
-      if (d_flag == 0) {
+      if (!d_flag) {
         for (i = 0; i < 12; i++) {
            // printf("begin loop -> %d\n", i);
             //printf("sign_bufptr[%d] -> 0x%x\n", i, sign_bufptr[i]);
