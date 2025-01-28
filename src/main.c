@@ -75,7 +75,7 @@ int main(int argc, char **argv){
     //printf("%c\n", *sign_buffer);
     //printf("%c\n", *(sign_buffer + 1));
     //printf("0x%x\n", *(short*)(sign_buffer + 2));
-    if (((sign_buffer[0] != 'a') || (sign_buffer[1] != 'c')) || (*(short *)(sign_buffer + 2) != 1)){
+    if (((sign_buffer[0] != 'a') || (sign_buffer[1] != 'c')) || sign_buffer[2] != 1){
       printf("invalid sign file header %s \n", signfile);
       return -1;
     }
@@ -111,7 +111,8 @@ int main(int argc, char **argv){
         }
                     /* 16 = makercode offset */
         //printf("infile_buffer -> %x\nsign_bufptr -> %x\n", (*(char*)infile_buffer + 16), (*(uint8_t*)sign_bufptr + 16));
-        bool tmp = (*(uint8_t*)infile_buffer + 16) != (*(uint8_t*)sign_bufptr + 16);
+        bool tmp = (*(uint8_t*)infile_buffer + 16) != (*(uint8_t*)sign_bufptr + 16); 
+        //printf("%x %x\n", infile_buffer[16], sign_bufptr[16]);
         if (tmp){
           printf("does not match maker code !\n");
           return -1;
