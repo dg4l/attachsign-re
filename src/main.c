@@ -36,8 +36,8 @@ int main(int argc, char **argv){
   hmacsize = 0;
   save_failure = false;
   if (argc != 4) {
-    printf("%s [INPUT file] [SIGN file] [OUTPUT file]\n", *argv);
-    printf("%s -D [INPUT file] [OUTPUT file]\n", *argv);
+    printf("%s [INPUT file] [SIGN file] [OUTPUT file]\n", argv[0]);
+    printf("%s -D [INPUT file] [OUTPUT file]\n", argv[0]);
     return -1;
   }
   generic_retval = strcmp(argv[1], "-D");
@@ -75,7 +75,7 @@ int main(int argc, char **argv){
     //printf("%c\n", *sign_buffer);
     //printf("%c\n", *(sign_buffer + 1));
     //printf("0x%x\n", *(short*)(sign_buffer + 2));
-    if (((*sign_buffer != 'a') || (sign_buffer[1] != 'c')) || (*(short *)(sign_buffer + 2) != 1)){
+    if (((sign_buffer[0] != 'a') || (sign_buffer[1] != 'c')) || (*(short *)(sign_buffer + 2) != 1)){
       printf("invalid sign file header %s \n", signfile);
       return -1;
     }
@@ -84,7 +84,7 @@ int main(int argc, char **argv){
   generic_retval = loadFile(infile,&infile_buffer,&file_size);
   if (!generic_retval) {
       // maybe AND ntr_rom_size with file_size to prevent fffff from being at the beginning of it
-    ntr_rom_size = *(infile_buffer + 0x80);
+    ntr_rom_size = infile_buffer[0x80];
     //printf("ntr_rom_size -> %x\n", ntr_rom_size);
     //printf("file_size -> %d\n", file_size);
     //printf("d_flag -> %d\n", d_flag);
@@ -97,16 +97,15 @@ int main(int argc, char **argv){
         for (i = 0; i < 12; i++) {
            // printf("begin loop -> %d\n", i);
             //printf("sign_bufptr[%d] -> 0x%x\n", i, sign_bufptr[i]);
-          if (*(i + infile_buffer) != sign_bufptr[i]) {
-          //if (*(char *)(i + (int)infile_buffer) != sign_bufptr[i]) {
+          if (infile_buffer[i] != sign_bufptr[i]) {
             printf("does not match game name !\n");
             return -1;
           }
-          if (*(i + infile_buffer) == '\0') break;
+          if (infile_buffer[i] == '\0') break;
            // printf("end loop -> %d\n", i);
         }
                     /* 12 = gamecode offset */
-        if (*(infile_buffer + 12) != *(sign_bufptr + 12)) {
+        if (infile_buffer[12] != sign_bufptr[12]){
           printf("does not match game code !\n");
           return -1;
         }
