@@ -1,5 +1,5 @@
 int loadFile(char *input, char **bufptr, size_t *size){
-  FILE *_File;
+  FILE *infile;
   int retval;
   int ret;
   size_t num;
@@ -13,16 +13,16 @@ int loadFile(char *input, char **bufptr, size_t *size){
     buf = 0;
     pos = 0;
     num = 0;
-    _File = fopen(input,"rb");
-    if (_File) {
-      fseek(_File,0,2);
-      pos = ftell(_File);
-      fseek(_File,0,0);
+    infile = fopen(input,"rb");
+    if (infile) {
+      fseek(infile,0,2);
+      pos = ftell(infile);
+      fseek(infile,0,0);
       buf = malloc(pos);
       if (buf) {
-        num = fread(buf,1,pos,_File);
+        num = fread(buf,1,pos,infile);
       }
-      fclose(_File);
+      fclose(infile);
     }
     if ((!buf) || (!pos) || (pos != num)) {
       if (buf) {
