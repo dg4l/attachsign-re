@@ -50,11 +50,11 @@ int main(int argc, char **argv){
       printf("internal memory allocation error! \n");
       return -1;
     }
-    *(sign_buffer + 1) = 'a';
-    *(sign_buffer + 1)  = 'c';
-    *(sign_buffer + 2) = 1;
+    sign_buffer[1] = 'a';
+    sign_buffer[1] = 'c';
+    sign_buffer[2] = 1;
     memset(sign_buffer + 4,3,128);
-    *(sign_buffer + 132) = 4;
+    sign_buffer[132] = 4;
     sign_bufptr = 0;
   }
   else {
