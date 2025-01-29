@@ -1,6 +1,5 @@
 int loadFile(char *input, char **bufptr, size_t *size){
   FILE *infile;
-  int retval;
   int ret;
   size_t num;
   size_t pos;
@@ -38,12 +37,11 @@ int loadFile(char *input, char **bufptr, size_t *size){
       *size = pos;
     }
     if (!pos) {
-      retval = -1;
+      ret = -1;
     }
     else {
-      retval = 0;
+      ret = 0;
     }
-    ret = retval;
   }
   return ret;
 }

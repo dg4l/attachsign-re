@@ -1,6 +1,5 @@
 int saveFile(char *out,char *buf,size_t size){
   FILE *outfile;
-  int retval;
   int ret;
   size_t num_bytes_written;
   
@@ -26,12 +25,11 @@ int saveFile(char *out,char *buf,size_t size){
       size = 0;
     }
     if (!size) {
-      retval = -1;
+      ret = -1;
     }
     else {
-      retval = 0;
+      ret = 0;
     }
-    ret = retval;
   }
   return ret;
 }

@@ -6,9 +6,7 @@
 #include <stdlib.h>
 #include "loadfile.h"
 #include "savefile.h"
-#define uint unsigned int
 
-// TODO: clean up typecasting clusterfuck caused by ghidra
 int main(int argc, char **argv){
   int generic_retval;
   void *dst;
@@ -25,8 +23,6 @@ int main(int argc, char **argv){
   size_t file_size;
   char *infile_buffer;
   int d_flag;
-  uint8_t uVar1;
-  size_t in_stack_ffffff90;
   size_t ntr_rom_size;
   char *signfile;
   
