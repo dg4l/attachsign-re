@@ -148,10 +148,10 @@ int main(int argc, char **argv){
           }
           free(dst);
         }
-        if (infile_buffer != (void *)0) {
+        if (infile_buffer) {
           free(infile_buffer);
         }
-        if (sign_buffer != (char *)0) {
+        if (sign_buffer) {
           free(sign_buffer);
         }
         if (save_failure) {
