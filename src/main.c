@@ -110,9 +110,7 @@ int main(int argc, char **argv){
           return -1;
         }
                     /* 16 = makercode offset */
-        //printf("infile_buffer -> %x\nsign_bufptr -> %x\n", (*(char*)infile_buffer + 16), (*(uint8_t*)sign_bufptr + 16));
-        bool tmp = sign_bufptr[16] != infile_buffer[16]; 
-        if (tmp){
+        if (sign_bufptr[16] != infile_buffer[16]){
           printf("does not match maker code !\n");
           return -1;
         }
