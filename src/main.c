@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include "loadfile.h"
 #include "savefile.h"
+#define HMAC_EXPECTED_SIZE 155
+#define SIGN_INSERTION_OFFSET 136
 
 int main(int argc, char **argv){
   int generic_retval;
@@ -41,7 +43,7 @@ int main(int argc, char **argv){
     d_flag = 1;
     infile = argv[2];
     outfile = argv[3];
-    sign_buffer = malloc(155);
+    sign_buffer = malloc(HMAC_EXPECTED_SIZE);
     if (sign_buffer == 0){ 
       printf("internal memory allocation error! \n");
       return -1;
@@ -63,7 +65,7 @@ int main(int argc, char **argv){
       printf("load error! %s \n", signfile);
       return -1;
     }
-    if (hmacsize != 155){
+    if (hmacsize != HMAC_EXPECTED_SIZE){
         //printf("hmacsize -> %d\n", hmacsize);
       printf("invalid hmac file size is not %d =>%d %ld  %s \n",155,136,hmacsize,signfile);
       return -1;
@@ -133,7 +135,7 @@ int main(int argc, char **argv){
         if (dst) {
                     /* dest, src, size */
           memcpy(dst,infile_buffer,file_size);
-          memcpy(((uint8_t)ntr_rom_size + dst), sign_buffer, 136);
+          memcpy(((uint8_t)ntr_rom_size + dst), sign_buffer, SIGN_INSERTION_OFFSET);
           generic_retval = saveFile(outfile, dst, alloc_size);
           save_failure = generic_retval != 0;
           if (save_failure) {
