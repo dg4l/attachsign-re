@@ -66,13 +66,9 @@ int main(int argc, char **argv) {
             return -1;
         }
         if (hmacsize != HMAC_EXPECTED_SIZE) {
-                //printf("hmacsize -> %d\n", hmacsize);
             printf("invalid hmac file size is not %d =>%d %ld    %s \n",155,136,hmacsize,signfile);
             return -1;
         }
-        //printf("%c\n", *sign_buffer);
-        //printf("%c\n", *(sign_buffer + 1));
-        //printf("0x%x\n", *(short*)(sign_buffer + 2));
         if (((sign_buffer[0] != 'a') || (sign_buffer[1] != 'c')) || sign_buffer[2] != 1) {
             printf("invalid sign file header %s \n", signfile);
             return -1;
@@ -82,12 +78,6 @@ int main(int argc, char **argv) {
     generic_retval = loadFile(infile,&infile_buffer,&file_size);
     if (!generic_retval) {
         ntr_rom_size = infile_buffer[0x80];
-        printf("%zu\n", ntr_rom_size);
-        printf("%zu\n", file_size);
-        printf("%zu\n", ntr_rom_size);
-        //printf("ntr_rom_size -> %x\n", ntr_rom_size);
-        //printf("file_size -> %d\n", file_size);
-        //printf("d_flag -> %d\n", d_flag);
         if (!ntr_rom_size) {
             printf("file format error! %s \n",infile);
             ret = -1;
@@ -95,14 +85,11 @@ int main(int argc, char **argv) {
         else {
             if (!d_flag) {
                 for (i = 0; i < 12; i++) {
-                     // printf("begin loop -> %d\n", i);
-                        //printf("sign_bufptr[%d] -> 0x%x\n", i, sign_bufptr[i]);
                     if (infile_buffer[i] != sign_bufptr[i]) {
                         printf("does not match game name !\n");
                         return -1;
                     }
                     if (infile_buffer[i] == '\0') break;
-                     // printf("end loop -> %d\n", i);
                 }
                                         /* 12 = gamecode offset */
                 if (infile_buffer[12] != sign_bufptr[12]) {
@@ -116,13 +103,11 @@ int main(int argc, char **argv) {
                 }
             }
             if (file_size < (uint8_t)ntr_rom_size) {
-                    //printf("file_size -> %x\nntr_rom_size -> %x\n", file_size, ntr_rom_size);
                     printf("error: invalid rom size !\n");
                 ret = -1;
             }
             else {
                 if (file_size == (uint8_t)ntr_rom_size) {
-                        //printf("no pad\n");
                     alloc_size = file_size + 0x88;
                 }
                 else if (file_size < (uint8_t)ntr_rom_size + 0x88) {
