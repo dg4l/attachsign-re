@@ -9,7 +9,7 @@
 #define HMAC_EXPECTED_SIZE 155
 #define SIGN_INSERTION_OFFSET 136
 
-int main(int argc, char **argv){
+int main(int argc, char **argv) {
     int generic_retval;
     void *dst;
     bool save_failure;
@@ -44,7 +44,7 @@ int main(int argc, char **argv){
         infile = argv[2];
         outfile = argv[3];
         sign_buffer = malloc(HMAC_EXPECTED_SIZE);
-        if (sign_buffer == 0){ 
+        if (sign_buffer == 0) { 
             printf("internal memory allocation error! \n");
             return -1;
         }
@@ -65,7 +65,7 @@ int main(int argc, char **argv){
             printf("load error! %s \n", signfile);
             return -1;
         }
-        if (hmacsize != HMAC_EXPECTED_SIZE){
+        if (hmacsize != HMAC_EXPECTED_SIZE) {
                 //printf("hmacsize -> %d\n", hmacsize);
             printf("invalid hmac file size is not %d =>%d %ld    %s \n",155,136,hmacsize,signfile);
             return -1;
@@ -73,7 +73,7 @@ int main(int argc, char **argv){
         //printf("%c\n", *sign_buffer);
         //printf("%c\n", *(sign_buffer + 1));
         //printf("0x%x\n", *(short*)(sign_buffer + 2));
-        if (((sign_buffer[0] != 'a') || (sign_buffer[1] != 'c')) || sign_buffer[2] != 1){
+        if (((sign_buffer[0] != 'a') || (sign_buffer[1] != 'c')) || sign_buffer[2] != 1) {
             printf("invalid sign file header %s \n", signfile);
             return -1;
         }
@@ -81,8 +81,10 @@ int main(int argc, char **argv){
     }
     generic_retval = loadFile(infile,&infile_buffer,&file_size);
     if (!generic_retval) {
-            // maybe AND ntr_rom_size with file_size to prevent fffff from being at the beginning of it
         ntr_rom_size = infile_buffer[0x80];
+        printf("%zu\n", ntr_rom_size);
+        printf("%zu\n", file_size);
+        printf("%zu\n", ntr_rom_size);
         //printf("ntr_rom_size -> %x\n", ntr_rom_size);
         //printf("file_size -> %d\n", file_size);
         //printf("d_flag -> %d\n", d_flag);
@@ -103,17 +105,17 @@ int main(int argc, char **argv){
                      // printf("end loop -> %d\n", i);
                 }
                                         /* 12 = gamecode offset */
-                if (infile_buffer[12] != sign_bufptr[12]){
+                if (infile_buffer[12] != sign_bufptr[12]) {
                     printf("does not match game code !\n");
                     return -1;
                 }
                                         /* 16 = makercode offset */
-                if (sign_bufptr[16] != infile_buffer[16]){
+                if (sign_bufptr[16] != infile_buffer[16]) {
                     printf("does not match maker code !\n");
                     return -1;
                 }
             }
-            if (file_size < (uint8_t)ntr_rom_size){
+            if (file_size < (uint8_t)ntr_rom_size) {
                     //printf("file_size -> %x\nntr_rom_size -> %x\n", file_size, ntr_rom_size);
                     printf("error: invalid rom size !\n");
                 ret = -1;
